@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Rodin Game</title>
+    <script language="javascript" type="text/javascript">
+            var gameWebsocket;
+
+            function init() {
+                output = document.getElementById("output");
+            }
+
+            function playGame() {
+                var wsUri = "ws://localhost:8080/rodingame/game";
+                writeToScreen("Connecting to " + wsUri);
+                gameWebsocket = new WebSocket(wsUri);
+                gameWebsocket.onopen = function (evt) {
+                    writeToScreen("You are in!");
+                    doSend(playerName.value);
+                };
+                gameWebsocket.onmessage = function (evt) {
+                    writeToScreen("Received message: " + evt.data);
+                    gameWebsocket.close();
+                };
+                gameWebsocket.onerror = function (evt) {
+                    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+                    gameWebsocket.close();
+                };
+            }
+
+            function doSend(message) {
+                gameWebsocket.send(message);
+                writeToScreen("Sent message: " + message);
+            }
+
+            function writeToScreen(message) {
+                var pre = document.createElement("p");
+                pre.style.wordWrap = "break-word";
+                pre.innerHTML = message;
+                output.appendChild(pre);
+            }
+
+            window.addEventListener("load", init, false);
+
+
+    </script>
+</head>
+<body>
+<h1>Rodin Game</h1>
+
+<div style="text-align: left;">
+    <form action="">
+        Enter your name:
+        <input id="playerName" name="playerName" value="" type="text"><br>
+        <input onclick="playGame()" value="Play!" type="button">
+        <br>
+    </form>
+</div>
+<div id="output"></div>
+</body>
+</html>
