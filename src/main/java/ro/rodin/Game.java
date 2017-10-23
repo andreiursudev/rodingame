@@ -7,8 +7,8 @@ import javax.websocket.server.ServerEndpoint;
 public class Game {
 
     @OnMessage
-    public String play(){
-        return "You won!";
+    public String play(String playerName){
+        return playerName + ", you won!";
     }
 
 }
