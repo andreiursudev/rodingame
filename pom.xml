@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ro.rodin</groupId>
-    <artifactId>game</artifactId>
+    <artifactId>rodingame</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 

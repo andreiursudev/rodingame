@@ -1,4 +1,4 @@
-package ro.rodin.game;
+package ro.rodin;
 
 import org.junit.Test;
 

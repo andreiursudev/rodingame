@@ -1,4 +1,4 @@
-package ro.rodin.game;
+package ro.rodin;
 
 public class Game {
 
