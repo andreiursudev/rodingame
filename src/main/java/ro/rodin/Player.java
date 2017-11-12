@@ -31,7 +31,11 @@ public class Player {
 
     public void kickOpenTheDoor(FaceDownDoorCardsPile pile){
         DoorCard card = pile.draw();
-        this.putInHand(card);
+        if(card.isMonsterCard()){
+
+        } else {
+            this.putInHand(card);
+        }
     }
 
     private void putInHand(DoorCard card) {

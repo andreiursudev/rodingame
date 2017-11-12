@@ -9,25 +9,35 @@ import static org.mockito.Mockito.mock;
 public class PlayerTest {
 
     private Player player;
-    private FaceDownDoorCardsPile pile;
+    private FaceDownDoorCardsPile pileWithNormalCard;
+    private FaceDownDoorCardsPile pileWithMonsterCard;
 
     @Before
     public void setUp() throws Exception {
         player = new Player();
-        pile = new FaceDownDoorCardsPile(mock(DoorCard.class));
+        pileWithNormalCard = new FaceDownDoorCardsPile(new DoorCard());
+        pileWithMonsterCard = new FaceDownDoorCardsPile(new DoorCard(new Monster()));
     }
 
     @Test
-    public void when_player_draws_normal_card_then_the_card_is_removed_from_the_pile() throws Exception {
-        player.kickOpenTheDoor(pile);
+    public void given_normal_card_on_top_of_face_down_door_cards_pile_when_player_kickOpenTheDoor_then_pile_has_one_card_less() throws Exception {
+        player.kickOpenTheDoor(pileWithNormalCard);
 
-        assertTrue(pile.numberOfCardsInPile() == 0);
+        assertTrue(pileWithNormalCard.numberOfCardsInPile() == 0);
     }
 
     @Test
-    public void when_player_draws_normal_card_then_the_card_is_in_players_hand() throws Exception {
-        player.kickOpenTheDoor(pile);
+    public void given_normal_card_on_top_of_face_down_door_cards_pile_when_player_kickOpenTheDoor_then_player_has_one_more_card_in_hand() throws Exception {
+        player.kickOpenTheDoor(pileWithNormalCard);
 
         assertTrue(player.numberOfCardsInHand() == 1);
+    }
+
+    @Test
+    public void given_monster_card_on_top_of_face_down_door_cards_pile_when_player_kickOpenTheDoor_then_monstar_card_is_placed_in_combat() throws Exception {
+        player.kickOpenTheDoor(pileWithMonsterCard);
+
+        assertTrue(player.numberOfCardsInHand() == 0);
+
     }
 }
