@@ -88,7 +88,7 @@
     var gameWebsocket;
     function init() {
         output = document.getElementById("output");
-        var wsUri = "ws://"+location.host + "/rodingame/game";
+        var wsUri = "ws://"+location.host + "/rodingame/player";
         gameWebsocket = new WebSocket(wsUri);
         gameWebsocket.onopen = function (evt) {
             console.log("WebSocket is open: " + wsUri);

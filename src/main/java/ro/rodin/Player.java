@@ -4,7 +4,7 @@ import javax.websocket.OnMessage;
 import javax.websocket.server.ServerEndpoint;
 
 @ServerEndpoint("/player")
-public class Game {
+public class Player {
 
     @OnMessage
     public String play(String playerName){
@@ -13,7 +13,7 @@ public class Game {
                     break;
             }
 
-        return playerName + ", you won!";
+        return "DRAW_DOOR_CARD";
     }
 
 }
