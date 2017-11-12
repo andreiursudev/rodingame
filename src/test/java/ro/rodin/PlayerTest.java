@@ -16,7 +16,7 @@ public class PlayerTest {
     public void setUp() throws Exception {
         player = new Player();
         pileWithNormalCard = new FaceDownDoorCardsPile(new DoorCard());
-        pileWithMonsterCard = new FaceDownDoorCardsPile(new DoorCard(new Monster()));
+        pileWithMonsterCard = new FaceDownDoorCardsPile(new DoorCard(new Monster("Plant", 1)));
     }
 
     @Test
@@ -34,10 +34,17 @@ public class PlayerTest {
     }
 
     @Test
-    public void given_monster_card_on_top_of_face_down_door_cards_pile_when_player_kickOpenTheDoor_then_monstar_card_is_placed_in_combat() throws Exception {
-        player.kickOpenTheDoor(pileWithMonsterCard);
+    public void given_normal_card_on_top_of_face_down_door_cards_pile_when_player_kickOpenTheDoor_then_player_can_do_no_action() throws Exception {
+        Action action = player.kickOpenTheDoor(pileWithNormalCard);
+
+        assertTrue(action instanceof NoAction);
+    }
+
+    @Test
+    public void given_monster_card_on_top_of_face_down_door_cards_pile_when_player_kickOpenTheDoor_then_monster_card_is_placed_in_combat() throws Exception {
+        Action action = player.kickOpenTheDoor(pileWithMonsterCard);
 
         assertTrue(player.numberOfCardsInHand() == 0);
-
+        assertTrue(action instanceof Combat);
     }
 }

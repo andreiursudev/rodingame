@@ -8,12 +8,13 @@ public class Player {
 
     private List<DoorCard> hand = new ArrayList<>();
 
-    public void kickOpenTheDoor(FaceDownDoorCardsPile pile){
+    public Action kickOpenTheDoor(FaceDownDoorCardsPile pile){
         DoorCard card = pile.draw();
         if(card.isMonsterCard()){
-
+            return new Combat(card.getMonster());
         } else {
             this.putInHand(card);
+            return new NoAction();
         }
     }
 

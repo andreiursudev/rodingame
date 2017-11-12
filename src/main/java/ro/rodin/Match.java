@@ -7,16 +7,16 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint("/match")
 public class Match {
 
-    private Game game;
+    private FaceDownDoorCardsPile faceDownDoorCardsPile;
     private Player player;
 
     @OnOpen
     public void initialize() {
-        game =  new Game(
+        faceDownDoorCardsPile =
                 new FaceDownDoorCardsPile(
                         new DoorCard()
-                )
-        );
+                );
+
         player = new Player();
     }
 
@@ -24,11 +24,10 @@ public class Match {
     public String play(String action){
         switch (Message.valueOf(action)){
             case KICK_OPEN_THE_DOOR:
-                player.kickOpenTheDoor(game.getFaceDownDoorCardsPile());
-                break;
+                return player.kickOpenTheDoor(faceDownDoorCardsPile).act();
         }
 
-        return "KICK_OPEN_THE_DOOR";
+        return "no action match";
     }
 
 }

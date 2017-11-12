@@ -14,4 +14,8 @@ public class DoorCard {
     public boolean isMonsterCard() {
         return monster != null;
     }
+
+    public Monster getMonster() {
+        return monster;
+    }
 }
