@@ -30,6 +30,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Door card</h4>
+                            <button type="button" class="btn btn-success" onclick="drawDoorCard()">Draw</button>
                         </div>
                     </div>
                 </div>
@@ -82,5 +83,30 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script language="javascript" type="text/javascript">
+    var gameWebsocket;
+    function init() {
+        output = document.getElementById("output");
+        var wsUri = "ws://"+location.host + "/rodingame/game";
+        gameWebsocket = new WebSocket(wsUri);
+        gameWebsocket.onopen = function (evt) {
+            console.log("WebSocket is open: " + wsUri);
+        };
+        gameWebsocket.onmessage = function (evt) {
+            console.log(evt);
+
+        };
+        gameWebsocket.onerror = function (evt) {
+            console.log("Error!" + wsUri);
+            gameWebsocket.close();
+        };
+    }
+    function drawDoorCard() {
+        gameWebsocket.send("DRAW_DOOR_CARD");
+    }
+
+    window.addEventListener("load", init, false);
+</script>
 </body>
 </html>
