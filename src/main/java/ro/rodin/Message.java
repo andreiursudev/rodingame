@@ -1,5 +1,5 @@
 package ro.rodin;
 
 public enum Message {
-    DRAW_DOOR_CARD
+    KICK_OPEN_THE_DOOR
 }
